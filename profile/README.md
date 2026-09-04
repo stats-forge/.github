@@ -28,4 +28,4 @@ Thanks to
 - [@rickstaa](https://github.com/rickstaa)
 - [@qwerty541](https://github.com/qwerty541)
 - [@martin-mfg](https://github.com/martin-mfg)
-- and everyone else who worked on them. ❤️
+- Everyone else who worked on them. ❤️
