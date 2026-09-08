@@ -1,0 +1,100 @@
+name: Update profile cards
+
+on:
+  schedule:
+    # Run every week on Sunday at 05:37 UTC, off the peak windows described in
+    # https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule
+    #        ┌───────────── minute (0 - 59)
+    #        │  ┌───────────── hour (0 - 23)
+    #        │  │ ┌───────────── day of the month (1 - 31)
+    #        │  │ │ ┌───────────── month (1 - 12 or JAN-DEC)
+    #        │  │ │ │ ┌───────────── day of the week (0 - 6 or SUN-SAT)
+    #        │  │ │ │ │
+    #        *  * * * *
+    - cron: "37 5 * * 0"
+
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  build:
+    name: Build profile cards and open PR
+
+    if: github.repository == 'stats-forge/.github'
+
+    runs-on: ubuntu-latest
+
+    environment: update-card-files # where HELPER_APP_ID and HELPER_PRIVATE_KEY live
+
+    permissions:
+      contents: read # the app token, not GITHUB_TOKEN, pushes the branch and opens the PR
+
+    env:
+      DARK_CARD: profile/org-dark.svg
+      LIGHT_CARD: profile/org-light.svg
+      # Shared card options, only the theme differs between the two cards
+      CARD_OPTIONS: org=${{ github.repository_owner }}&show_icons=true&number_format=long&show=releases,commits,top_language
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # A GitHub App token, not GITHUB_TOKEN: events from the default token do not
+      # start other workflows, so nothing would run on the generated PR.
+      - name: Setup credentials
+        id: credentials
+        uses: marcalexiei/github-actions/setup-github-app-user-bot@e3b04865510c657477cc722854b31a3b74c72c09 # v2.2.0
+        with:
+          app-id: ${{ vars.HELPER_APP_ID }}
+          private-key: ${{ secrets.HELPER_PRIVATE_KEY }}
+
+      - name: Generate organization card (dark) - ${{ env.DARK_CARD }}
+        uses: stats-forge/github-stats-forge-action@f539abd8edbb3e6d30dea83848aba1702b533186 # v0.4.0
+        with:
+          card: org
+          options: ${{ env.CARD_OPTIONS }}&theme=react
+          path: ${{ env.DARK_CARD }}
+          token: ${{ steps.credentials.outputs.token }}
+
+      - name: Generate organization card (light) - ${{ env.LIGHT_CARD }}
+        uses: stats-forge/github-stats-forge-action@f539abd8edbb3e6d30dea83848aba1702b533186 # v0.4.0
+        with:
+          card: org
+          options: ${{ env.CARD_OPTIONS }}&theme=default
+          path: ${{ env.LIGHT_CARD }}
+          token: ${{ steps.credentials.outputs.token }}
+
+      - name: Create Pull Request
+        id: create_pr
+        # zizmor: ignore[superfluous-actions] -- this action also handles git commit and branch push, not just PR creation
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          token: ${{ steps.credentials.outputs.token }}
+          branch: update-profile-cards
+          title: ${{ env.COMMIT_MESSAGE }}
+          commit-message: ${{ env.COMMIT_MESSAGE }}
+          body: |
+            Scheduled cards update
+
+            [View workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          author: ${{ env.AUTHOR }}
+          committer: ${{ env.AUTHOR }}
+          sign-commits: true
+          delete-branch: true # avoid multiple PRs
+        env:
+          COMMIT_MESSAGE: "feat: update profile cards"
+          AUTHOR: ${{ steps.credentials.outputs.bot-name }} <${{ steps.credentials.outputs.bot-email }}>
+
+      - name: Enable auto-merge
+        if: ${{ steps.create_pr.outputs.pull-request-number }} # PR might not being opened
+        run: gh pr merge --squash --auto "${PULL_REQUEST_NUMBER}"
+        env:
+          GH_TOKEN: ${{ steps.credentials.outputs.token }}
+          PULL_REQUEST_NUMBER: ${{ steps.create_pr.outputs.pull-request-number }}

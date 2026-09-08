@@ -2,11 +2,8 @@
 
 Organization-level files for [stats-forge](https://github.com/stats-forge).
 
-`profile/README.md` is the organization profile page —
-GitHub renders it at <https://github.com/stats-forge>.
-Its images are referenced by absolute `raw.githubusercontent.com` URL,
-because relative paths do not resolve when the file is rendered on the organization page
-rather than in this repository.
-
-Anything else added here (`CONTRIBUTING.md`, `SECURITY.md`, issue templates)
-becomes the default for every repository in the organization that does not carry its own.
+`profile/org-dark.svg` and `profile/org-light.svg` are the organization's own `org` card,
+generated and committed weekly by
+[`update-profile-cards.yml`](.github/workflows/update-profile-cards.yml)
+through [github-stats-forge-action](https://github.com/stats-forge/github-stats-forge-action).
+Editing them by hand is pointless — the next run overwrites both.
