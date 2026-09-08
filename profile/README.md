@@ -4,7 +4,21 @@
   <p><strong>GitHub stats cards you render yourself.</strong></p>
 </div>
 
-Cards for your README: contribution stats, top languages, pinned repositories, gists and WakaTime coding time rendered as SVG.
+<div align="center">
+  <picture>
+    <source
+      srcset="https://raw.githubusercontent.com/stats-forge/.github/main/profile/org-dark.svg"
+      media="(prefers-color-scheme: dark)"
+    />
+    <img
+      alt="stats-forge organization stats"
+      src="https://raw.githubusercontent.com/stats-forge/.github/main/profile/org-light.svg"
+    />
+  </picture>
+  <p><sub>Our own <code>org</code> card, committed weekly by the action.</sub></p>
+</div>
+
+Cards for your README: contribution stats, top languages, pinned repositories, organization totals, gists, WakaTime coding time and more, rendered as SVG.
 
 The usual way to get one is an image URL pointing at somebody's hosted instance.
 That instance serves everyone out of one shared pool of GitHub tokens,
