@@ -48,7 +48,7 @@ jobs:
       ACTIVITY_LIGHT_CARD: profile/org-activity-light.svg
       # Shared card options, only the theme differs between the dark and light card.
       # What is open belongs to the activity card, so the info card leaves it out and the two stay the same size.
-      INFO_CARD_OPTIONS: org=${{ github.repository_owner }}&show_icons=true&number_format=long&show=releases,commits,top_language&hide=forks,watchers,open_issues,open_prs
+      INFO_CARD_OPTIONS: org=${{ github.repository_owner }}&show_icons=true&number_format=long&show=releases,commits,top_language&hide=forks,watchers,open_issues,open_prs&hide_description=true
       # card_width matches the info card, so the two sit side by side in the profile README
       ACTIVITY_CARD_OPTIONS: org=${{ github.repository_owner }}&show_icons=true&number_format=long&days=30&show=commits&card_width=400
 
