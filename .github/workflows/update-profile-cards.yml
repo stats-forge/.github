@@ -68,7 +68,7 @@ jobs:
           private-key: ${{ secrets.HELPER_PRIVATE_KEY }}
 
       - name: Generate organization info card (dark) - ${{ env.INFO_DARK_CARD }}
-        uses: stats-forge/github-stats-forge-action@fab9219cda3d7698efdd9d0c96709ed33059b6e0 # v0.6.0
+        uses: stats-forge/github-stats-forge-action@3d608dae687c920e52bfb4a311314dcc15a0276b # v0.6.1
         with:
           card: org
           options: ${{ env.INFO_CARD_OPTIONS }}&theme=react
@@ -76,7 +76,7 @@ jobs:
           token: ${{ steps.credentials.outputs.token }}
 
       - name: Generate organization info card (light) - ${{ env.INFO_LIGHT_CARD }}
-        uses: stats-forge/github-stats-forge-action@fab9219cda3d7698efdd9d0c96709ed33059b6e0 # v0.6.0
+        uses: stats-forge/github-stats-forge-action@3d608dae687c920e52bfb4a311314dcc15a0276b # v0.6.1
         with:
           card: org
           options: ${{ env.INFO_CARD_OPTIONS }}&theme=default
@@ -84,7 +84,7 @@ jobs:
           token: ${{ steps.credentials.outputs.token }}
 
       - name: Generate organization activity card (dark) - ${{ env.ACTIVITY_DARK_CARD }}
-        uses: stats-forge/github-stats-forge-action@fab9219cda3d7698efdd9d0c96709ed33059b6e0 # v0.6.0
+        uses: stats-forge/github-stats-forge-action@3d608dae687c920e52bfb4a311314dcc15a0276b # v0.6.1
         with:
           card: org-activity
           options: ${{ env.ACTIVITY_CARD_OPTIONS }}&theme=react
@@ -92,7 +92,7 @@ jobs:
           token: ${{ steps.credentials.outputs.token }}
 
       - name: Generate organization activity card (light) - ${{ env.ACTIVITY_LIGHT_CARD }}
-        uses: stats-forge/github-stats-forge-action@fab9219cda3d7698efdd9d0c96709ed33059b6e0 # v0.6.0
+        uses: stats-forge/github-stats-forge-action@3d608dae687c920e52bfb4a311314dcc15a0276b # v0.6.1
         with:
           card: org-activity
           options: ${{ env.ACTIVITY_CARD_OPTIONS }}&theme=default
