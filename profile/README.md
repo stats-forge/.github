@@ -15,7 +15,6 @@
       src="https://raw.githubusercontent.com/stats-forge/.github/main/profile/org-info-light.svg"
     />
   </picture>
-  <br />
   <picture>
     <source
       srcset="https://raw.githubusercontent.com/stats-forge/.github/main/profile/org-activity-dark.svg"
