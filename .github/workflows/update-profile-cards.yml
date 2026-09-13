@@ -1,6 +1,13 @@
 name: Update profile cards
 
 on:
+  # the card options live in this file, so a change to them redraws the cards
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/update-profile-cards.yml
+
   schedule:
     # Run every week on Sunday at 05:37 UTC, off the peak windows described in
     # https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule
@@ -35,10 +42,14 @@ jobs:
       contents: read # the app token, not GITHUB_TOKEN, pushes the branch and opens the PR
 
     env:
-      DARK_CARD: profile/org-dark.svg
-      LIGHT_CARD: profile/org-light.svg
-      # Shared card options, only the theme differs between the two cards
-      CARD_OPTIONS: org=${{ github.repository_owner }}&show_icons=true&number_format=long&show=releases,commits,top_language
+      INFO_DARK_CARD: profile/org-info-dark.svg
+      INFO_LIGHT_CARD: profile/org-info-light.svg
+      ACTIVITY_DARK_CARD: profile/org-activity-dark.svg
+      ACTIVITY_LIGHT_CARD: profile/org-activity-light.svg
+      # Shared card options, only the theme differs between the dark and light card
+      INFO_CARD_OPTIONS: org=${{ github.repository_owner }}&show_icons=true&number_format=long&show=releases,commits,top_language
+      # card_width matches the info card, so the two line up in the profile README
+      ACTIVITY_CARD_OPTIONS: org=${{ github.repository_owner }}&show_icons=true&number_format=long&days=30&show=commits&card_width=400
 
     steps:
       - name: Checkout
@@ -55,20 +66,36 @@ jobs:
           app-id: ${{ vars.HELPER_APP_ID }}
           private-key: ${{ secrets.HELPER_PRIVATE_KEY }}
 
-      - name: Generate organization card (dark) - ${{ env.DARK_CARD }}
-        uses: stats-forge/github-stats-forge-action@f539abd8edbb3e6d30dea83848aba1702b533186 # v0.4.0
+      - name: Generate organization info card (dark) - ${{ env.INFO_DARK_CARD }}
+        uses: stats-forge/github-stats-forge-action@fab9219cda3d7698efdd9d0c96709ed33059b6e0 # v0.6.0
         with:
           card: org
-          options: ${{ env.CARD_OPTIONS }}&theme=react
-          path: ${{ env.DARK_CARD }}
+          options: ${{ env.INFO_CARD_OPTIONS }}&theme=react
+          path: ${{ env.INFO_DARK_CARD }}
           token: ${{ steps.credentials.outputs.token }}
 
-      - name: Generate organization card (light) - ${{ env.LIGHT_CARD }}
-        uses: stats-forge/github-stats-forge-action@f539abd8edbb3e6d30dea83848aba1702b533186 # v0.4.0
+      - name: Generate organization info card (light) - ${{ env.INFO_LIGHT_CARD }}
+        uses: stats-forge/github-stats-forge-action@fab9219cda3d7698efdd9d0c96709ed33059b6e0 # v0.6.0
         with:
           card: org
-          options: ${{ env.CARD_OPTIONS }}&theme=default
-          path: ${{ env.LIGHT_CARD }}
+          options: ${{ env.INFO_CARD_OPTIONS }}&theme=default
+          path: ${{ env.INFO_LIGHT_CARD }}
+          token: ${{ steps.credentials.outputs.token }}
+
+      - name: Generate organization activity card (dark) - ${{ env.ACTIVITY_DARK_CARD }}
+        uses: stats-forge/github-stats-forge-action@fab9219cda3d7698efdd9d0c96709ed33059b6e0 # v0.6.0
+        with:
+          card: org-activity
+          options: ${{ env.ACTIVITY_CARD_OPTIONS }}&theme=react
+          path: ${{ env.ACTIVITY_DARK_CARD }}
+          token: ${{ steps.credentials.outputs.token }}
+
+      - name: Generate organization activity card (light) - ${{ env.ACTIVITY_LIGHT_CARD }}
+        uses: stats-forge/github-stats-forge-action@fab9219cda3d7698efdd9d0c96709ed33059b6e0 # v0.6.0
+        with:
+          card: org-activity
+          options: ${{ env.ACTIVITY_CARD_OPTIONS }}&theme=default
+          path: ${{ env.ACTIVITY_LIGHT_CARD }}
           token: ${{ steps.credentials.outputs.token }}
 
       - name: Create Pull Request
