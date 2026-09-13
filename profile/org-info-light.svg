@@ -1,23 +1,23 @@
 <svg width="400" height="335" viewBox="0 0 400 335" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title-id desc-id">
   <title id="title-id">Stats Forge&#39;s GitHub Organization</title>
-  <desc id="desc-id">Cards for your README: contribution stats, top languages, pinned repositories, organization totals, gists, WakaTime coding time and more, rendered as SVG.. Public repositories: 3, Total stars: 1, Total forks: 0, Total watchers: 5, Open issues: 2, Open PRs: 0, Releases: 23, Commits: 155, Top language: TypeScript</desc>
+  <desc id="desc-id">Cards for your README: contribution stats, top languages, pinned repositories, organization totals, gists, WakaTime coding time and more, rendered as SVG.. Public repositories: 3, Total stars: 1, Total forks: 0, Total watchers: 5, Open issues: 2, Open PRs: 0, Releases: 24, Commits: 174, Top language: TypeScript</desc>
   <style>
     .header {
       font: 600 18px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif;
-      fill: #61dafb;
+      fill: #2f80ed;
       animation: fadeInAnimation 0.8s ease-in-out forwards;
     }
     /* The icon reads against the title rather than with it, so it keeps its own color. */
     .title-icon {
-      fill: #61dafb;
+      fill: #4c71f2;
       animation: fadeInAnimation 0.8s ease-in-out forwards;
     }
     .title-accent {
-      fill: #61dafb;
+      fill: #4c71f2;
       animation: fadeInAnimation 0.8s ease-in-out forwards;
     }
     .title-band {
-      fill: #61dafb;
+      fill: #2f80ed;
       opacity: 0.08;
     }
     @supports(-moz-appearance: auto) {
@@ -28,12 +28,12 @@
     }
     .stat {
       font: 400 14px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif;
-      fill: #ffffff;
+      fill: #434d58;
       font-variant-numeric: tabular-nums;
     }
     .description {
       font: 400 13px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif;
-      fill: #ffffff;
+      fill: #434d58;
       opacity: 0.9;
     }
     .stagger {
@@ -48,7 +48,7 @@
       font-weight: 600;
     }
     .icon {
-      fill: #61dafb;
+      fill: #4c71f2;
       opacity: 0.75;
       display: block;
     }
@@ -76,7 +76,7 @@
       }
     }
   </style>
-  <rect data-testid="card-bg" class="card-bg" x="0.5" y="0.5" rx="8" height="99%" stroke="#ffffff26" width="399" fill="#20232a" stroke-opacity="1" />
+  <rect data-testid="card-bg" class="card-bg" x="0.5" y="0.5" rx="8" height="99%" stroke="#0000001f" width="399" fill="#fffefe" stroke-opacity="1" />
   <path data-testid="title-band" class="title-band" d="M0.5 8.5a8 8 0 0 1 8 -8h383a8 8 0 0 1 8 8v37.5h-399z" />
   <g data-testid="card-title" transform="translate(25, 30)">
     <g>
@@ -152,7 +152,7 @@
             <path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z" />
           </svg>
           <text class="stat not_bold" x="25" y="12.5">Releases:</text>
-          <text class="stat bold" x="350" text-anchor="end" y="12.5" data-testid="releases">23</text>
+          <text class="stat bold" x="350" text-anchor="end" y="12.5" data-testid="releases">24</text>
         </g>
       </g>
       <g transform="translate(0, 175)">
@@ -161,7 +161,7 @@
             <path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z" />
           </svg>
           <text class="stat not_bold" x="25" y="12.5">Commits:</text>
-          <text class="stat bold" x="350" text-anchor="end" y="12.5" data-testid="commits">155</text>
+          <text class="stat bold" x="350" text-anchor="end" y="12.5" data-testid="commits">174</text>
         </g>
       </g>
       <g transform="translate(0, 200)">

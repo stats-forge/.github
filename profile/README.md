@@ -7,15 +7,26 @@
 <div align="center">
   <picture>
     <source
-      srcset="https://raw.githubusercontent.com/stats-forge/.github/main/profile/org-dark.svg"
+      srcset="https://raw.githubusercontent.com/stats-forge/.github/main/profile/org-info-dark.svg"
       media="(prefers-color-scheme: dark)"
     />
     <img
       alt="stats-forge organization stats"
-      src="https://raw.githubusercontent.com/stats-forge/.github/main/profile/org-light.svg"
+      src="https://raw.githubusercontent.com/stats-forge/.github/main/profile/org-info-light.svg"
     />
   </picture>
-  <p><sub>Our own <code>org</code> card, committed weekly by the action.</sub></p>
+  <br />
+  <picture>
+    <source
+      srcset="https://raw.githubusercontent.com/stats-forge/.github/main/profile/org-activity-dark.svg"
+      media="(prefers-color-scheme: dark)"
+    />
+    <img
+      alt="stats-forge organization activity over the last 30 days"
+      src="https://raw.githubusercontent.com/stats-forge/.github/main/profile/org-activity-light.svg"
+    />
+  </picture>
+  <p><sub>Our own <code>org</code> and <code>org-activity</code> cards, committed weekly by the action.</sub></p>
 </div>
 
 Cards for your README: contribution stats, top languages, pinned repositories, organization totals, gists, WakaTime coding time and more, rendered as SVG.
