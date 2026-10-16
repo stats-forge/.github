@@ -53,9 +53,25 @@ jobs:
       ACTIVITY_LIGHT_CARD: profile/org-activity-light.svg
       # Shared card options, only the theme differs between the dark and light card.
       # What is open belongs to the activity card, so the info card leaves it out and the two stay the same size.
-      INFO_CARD_OPTIONS: org=${{ github.repository_owner }}&show_icons=true&number_format=long&show=releases,commits,top_language&hide=forks,watchers,open_issues,open_prs&hide_description=true
+      INFO_CARD_OPTIONS: |
+        {
+          "org": "${{ github.repository_owner }}",
+          "show_icons": "true",
+          "number_format": "long",
+          "show": "releases,commits,top_language",
+          "hide": "forks,watchers,open_issues,open_prs",
+          "hide_description": "true"
+        }
       # card_width matches the info card, so the two sit side by side in the profile README
-      ACTIVITY_CARD_OPTIONS: org=${{ github.repository_owner }}&show_icons=true&number_format=long&days=30&show=commits&card_width=400
+      ACTIVITY_CARD_OPTIONS: |
+        {
+          "org": "${{ github.repository_owner }}",
+          "show_icons": "true",
+          "number_format": "long",
+          "days": "30",
+          "show": "commits",
+          "card_width": "400"
+        }
 
     steps:
       - name: Checkout
@@ -72,35 +88,45 @@ jobs:
           app-id: ${{ vars.HELPER_APP_ID }}
           private-key: ${{ secrets.HELPER_PRIVATE_KEY }}
 
+      - name: Build card options
+        id: options
+        run: |
+          {
+            echo "info-dark=$(jq -c '. + {theme: "react"}' <<< "${INFO_CARD_OPTIONS}")"
+            echo "info-light=$(jq -c '. + {theme: "default"}' <<< "${INFO_CARD_OPTIONS}")"
+            echo "activity-dark=$(jq -c '. + {theme: "react"}' <<< "${ACTIVITY_CARD_OPTIONS}")"
+            echo "activity-light=$(jq -c '. + {theme: "default"}' <<< "${ACTIVITY_CARD_OPTIONS}")"
+          } >> "${GITHUB_OUTPUT}"
+
       - name: Generate organization info card (dark) - ${{ env.INFO_DARK_CARD }}
-        uses: stats-forge/github-stats-forge-action@635c19487c577abae4a260d8b40c135b4e9f7965 # v0.7.0
+        uses: stats-forge/github-stats-forge-action@99b02695a1560d9d7bdbcc88ccf7e6ba4f348bed # v0.9.0
         with:
           card: org
-          options: ${{ env.INFO_CARD_OPTIONS }}&theme=react
+          options: ${{ steps.options.outputs.info-dark }}
           path: ${{ env.INFO_DARK_CARD }}
           token: ${{ steps.credentials.outputs.token }}
 
       - name: Generate organization info card (light) - ${{ env.INFO_LIGHT_CARD }}
-        uses: stats-forge/github-stats-forge-action@635c19487c577abae4a260d8b40c135b4e9f7965 # v0.7.0
+        uses: stats-forge/github-stats-forge-action@99b02695a1560d9d7bdbcc88ccf7e6ba4f348bed # v0.9.0
         with:
           card: org
-          options: ${{ env.INFO_CARD_OPTIONS }}&theme=default
+          options: ${{ steps.options.outputs.info-light }}
           path: ${{ env.INFO_LIGHT_CARD }}
           token: ${{ steps.credentials.outputs.token }}
 
       - name: Generate organization activity card (dark) - ${{ env.ACTIVITY_DARK_CARD }}
-        uses: stats-forge/github-stats-forge-action@635c19487c577abae4a260d8b40c135b4e9f7965 # v0.7.0
+        uses: stats-forge/github-stats-forge-action@99b02695a1560d9d7bdbcc88ccf7e6ba4f348bed # v0.9.0
         with:
           card: org-activity
-          options: ${{ env.ACTIVITY_CARD_OPTIONS }}&theme=react
+          options: ${{ steps.options.outputs.activity-dark }}
           path: ${{ env.ACTIVITY_DARK_CARD }}
           token: ${{ steps.credentials.outputs.token }}
 
       - name: Generate organization activity card (light) - ${{ env.ACTIVITY_LIGHT_CARD }}
-        uses: stats-forge/github-stats-forge-action@635c19487c577abae4a260d8b40c135b4e9f7965 # v0.7.0
+        uses: stats-forge/github-stats-forge-action@99b02695a1560d9d7bdbcc88ccf7e6ba4f348bed # v0.9.0
         with:
           card: org-activity
-          options: ${{ env.ACTIVITY_CARD_OPTIONS }}&theme=default
+          options: ${{ steps.options.outputs.activity-light }}
           path: ${{ env.ACTIVITY_LIGHT_CARD }}
           token: ${{ steps.credentials.outputs.token }}
 
@@ -110,6 +136,7 @@ jobs:
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
           token: ${{ steps.credentials.outputs.token }}
+          sign-commits: true # also sets author and committer to the app bot
           branch: update-profile-cards
           title: ${{ env.COMMIT_MESSAGE }}
           commit-message: ${{ env.COMMIT_MESSAGE }}
@@ -117,13 +144,9 @@ jobs:
             Scheduled cards update
 
             [View workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-          author: ${{ env.AUTHOR }}
-          committer: ${{ env.AUTHOR }}
-          sign-commits: true
           delete-branch: true # avoid multiple PRs
         env:
           COMMIT_MESSAGE: 'feat: update profile cards'
-          AUTHOR: ${{ steps.credentials.outputs.bot-name }} <${{ steps.credentials.outputs.bot-email }}>
 
       - name: Enable auto-merge
         if: ${{ steps.create_pr.outputs.pull-request-number }} # PR might not being opened
