@@ -19,7 +19,7 @@ defaults:
 jobs:
   code-checks:
     name: Code checks
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 5
 
     permissions:
@@ -39,7 +39,7 @@ jobs:
 
   github-actions-audit:
     name: GitHub Actions audit
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 5
     permissions:
       contents: read # required to check out the repository
@@ -73,7 +73,7 @@ jobs:
 
   ci-ok:
     name: CI OK
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 1
     if: ${{ always() }}
     needs:
