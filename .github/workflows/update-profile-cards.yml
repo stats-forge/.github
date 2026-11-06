@@ -92,14 +92,14 @@ jobs:
         id: options
         run: |
           {
-            echo "info-dark=$(jq -c '. + {theme: "react"}' <<< "${INFO_CARD_OPTIONS}")"
-            echo "info-light=$(jq -c '. + {theme: "default"}' <<< "${INFO_CARD_OPTIONS}")"
-            echo "activity-dark=$(jq -c '. + {theme: "react"}' <<< "${ACTIVITY_CARD_OPTIONS}")"
-            echo "activity-light=$(jq -c '. + {theme: "default"}' <<< "${ACTIVITY_CARD_OPTIONS}")"
+            echo "info-dark=$(jq -c '. + {theme: "ember_dark"}' <<< "${INFO_CARD_OPTIONS}")"
+            echo "info-light=$(jq -c '. + {theme: "ember_light"}' <<< "${INFO_CARD_OPTIONS}")"
+            echo "activity-dark=$(jq -c '. + {theme: "ember_dark"}' <<< "${ACTIVITY_CARD_OPTIONS}")"
+            echo "activity-light=$(jq -c '. + {theme: "ember_light"}' <<< "${ACTIVITY_CARD_OPTIONS}")"
           } >> "${GITHUB_OUTPUT}"
 
       - name: Generate organization info card (dark) - ${{ env.INFO_DARK_CARD }}
-        uses: stats-forge/github-stats-forge-action@99b02695a1560d9d7bdbcc88ccf7e6ba4f348bed # v0.9.0
+        uses: stats-forge/github-stats-forge-action@31f7d7da9436ded83d878725dfe6652bc15c037c # v0.13.3
         with:
           card: org
           options: ${{ steps.options.outputs.info-dark }}
@@ -107,7 +107,7 @@ jobs:
           token: ${{ steps.credentials.outputs.token }}
 
       - name: Generate organization info card (light) - ${{ env.INFO_LIGHT_CARD }}
-        uses: stats-forge/github-stats-forge-action@99b02695a1560d9d7bdbcc88ccf7e6ba4f348bed # v0.9.0
+        uses: stats-forge/github-stats-forge-action@31f7d7da9436ded83d878725dfe6652bc15c037c # v0.13.3
         with:
           card: org
           options: ${{ steps.options.outputs.info-light }}
@@ -115,7 +115,7 @@ jobs:
           token: ${{ steps.credentials.outputs.token }}
 
       - name: Generate organization activity card (dark) - ${{ env.ACTIVITY_DARK_CARD }}
-        uses: stats-forge/github-stats-forge-action@99b02695a1560d9d7bdbcc88ccf7e6ba4f348bed # v0.9.0
+        uses: stats-forge/github-stats-forge-action@31f7d7da9436ded83d878725dfe6652bc15c037c # v0.13.3
         with:
           card: org-activity
           options: ${{ steps.options.outputs.activity-dark }}
@@ -123,7 +123,7 @@ jobs:
           token: ${{ steps.credentials.outputs.token }}
 
       - name: Generate organization activity card (light) - ${{ env.ACTIVITY_LIGHT_CARD }}
-        uses: stats-forge/github-stats-forge-action@99b02695a1560d9d7bdbcc88ccf7e6ba4f348bed # v0.9.0
+        uses: stats-forge/github-stats-forge-action@31f7d7da9436ded83d878725dfe6652bc15c037c # v0.13.3
         with:
           card: org-activity
           options: ${{ steps.options.outputs.activity-light }}
