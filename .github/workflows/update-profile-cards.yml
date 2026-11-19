@@ -83,7 +83,7 @@ jobs:
       # start other workflows, so nothing would run on the generated PR.
       - name: Setup credentials
         id: credentials
-        uses: marcalexiei/github-actions/setup-github-app-user-bot@e3b04865510c657477cc722854b31a3b74c72c09 # v2.2.0
+        uses: marcalexiei/github-actions/setup-github-app-user-bot@0ac3ea042e173813ebc7b086c174705c5bfc0fb6 # v2.6.2
         with:
           app-id: ${{ vars.HELPER_APP_ID }}
           private-key: ${{ secrets.HELPER_PRIVATE_KEY }}
