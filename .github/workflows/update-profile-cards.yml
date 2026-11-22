@@ -81,11 +81,12 @@ jobs:
 
       # A GitHub App token, not GITHUB_TOKEN: events from the default token do not
       # start other workflows, so nothing would run on the generated PR.
-      - name: Setup credentials
+      # Unscoped: the cards read whatever the app can see, not only what the PR needs.
+      - name: Create app token
         id: credentials
-        uses: marcalexiei/github-actions/setup-github-app-user-bot@0dca7a8dfeb729b5b00eaed578440239df457db7 # v2.6.5
+        uses: actions/create-github-app-token@f418cff399f7aef4c2f0ad47e25ca7a6abbdd6fc # v3.4.0 # zizmor: ignore[github-app]
         with:
-          app-id: ${{ vars.HELPER_APP_ID }}
+          client-id: ${{ vars.HELPER_APP_ID }}
           private-key: ${{ secrets.HELPER_PRIVATE_KEY }}
 
       - name: Build card options
