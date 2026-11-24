@@ -103,7 +103,7 @@ jobs:
           } >> "${GITHUB_OUTPUT}"
 
       - name: Generate organization info card (dark) - ${{ env.INFO_DARK_CARD }}
-        uses: stats-forge/github-stats-forge-action@0a2d133f325f79770c71207659ad7dc20fd5912d # v0.17.0
+        uses: stats-forge/github-stats-forge-action@7bed01281707010a9ea3d49d3bca36929f255af4 # v0.18.0
         with:
           card: org
           options: ${{ steps.options.outputs.info-dark }}
@@ -111,7 +111,7 @@ jobs:
           token: ${{ steps.credentials.outputs.token }}
 
       - name: Generate organization info card (light) - ${{ env.INFO_LIGHT_CARD }}
-        uses: stats-forge/github-stats-forge-action@0a2d133f325f79770c71207659ad7dc20fd5912d # v0.17.0
+        uses: stats-forge/github-stats-forge-action@7bed01281707010a9ea3d49d3bca36929f255af4 # v0.18.0
         with:
           card: org
           options: ${{ steps.options.outputs.info-light }}
@@ -119,7 +119,7 @@ jobs:
           token: ${{ steps.credentials.outputs.token }}
 
       - name: Generate organization activity card (dark) - ${{ env.ACTIVITY_DARK_CARD }}
-        uses: stats-forge/github-stats-forge-action@0a2d133f325f79770c71207659ad7dc20fd5912d # v0.17.0
+        uses: stats-forge/github-stats-forge-action@7bed01281707010a9ea3d49d3bca36929f255af4 # v0.18.0
         with:
           card: org-activity
           options: ${{ steps.options.outputs.activity-dark }}
@@ -127,7 +127,7 @@ jobs:
           token: ${{ steps.credentials.outputs.token }}
 
       - name: Generate organization activity card (light) - ${{ env.ACTIVITY_LIGHT_CARD }}
-        uses: stats-forge/github-stats-forge-action@0a2d133f325f79770c71207659ad7dc20fd5912d # v0.17.0
+        uses: stats-forge/github-stats-forge-action@7bed01281707010a9ea3d49d3bca36929f255af4 # v0.18.0
         with:
           card: org-activity
           options: ${{ steps.options.outputs.activity-light }}
